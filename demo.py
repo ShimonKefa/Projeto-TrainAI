@@ -2,7 +2,7 @@ import google.generativeai as genai
 
 
 
-genai.configure(api_key="AIzaSyAu6XWGYfvb6fknCEYJSBNzd-MyCMIGTu8")
+genai.configure(api_key="")
 
 model = genai.GenerativeModel(model_name='models/gemini-2.0-flash-thinking-exp')
 
