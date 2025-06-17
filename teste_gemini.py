@@ -1,14 +1,23 @@
-import google.generativeai as genai
-import os
+'import google.generativeai as genai
+    
 
-genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
 
-try:
-    models = genai.list_models()
-    for model in models:
-        print(f"Nome do modelo: {model.name}")
-        print(f"Versões disponíveis: {model.versions}")
-        print(f"Métodos suportados: {model.supported_generation_methods}")
-        print("-" * 20)
-except Exception as e:
-    print(f"Ocorreu um erro: {e}")
+genai.configure(api_key="GEMINI_API_KEY")
+
+model = genai.GenerativeModel(model_name='models/gemini-2.0-flash-thinking-exp')
+
+def obter_grupo_muscular():
+    grupo = input("Qual grupo muscular você pretende malhar hoje?\n")
+    return grupo
+
+def gerar_treino(grupo_muscular):
+    prompt = f"Gere um treino de musculação instantâneo para o grupo muscular: {grupo_muscular}. Inclua o nome do exercí­cio, número de séries e repetições."
+    response = model.generate_content(prompt)
+    return response.text
+
+if __name__ == "__main__":
+    grupo = obter_grupo_muscular()
+    if grupo:
+        treino = gerar_treino(grupo)
+        print("\nSeu treino de hoje:")
+        print(treino)
